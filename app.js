@@ -1,17 +1,26 @@
 const Koa = require('koa');
 const app = new Koa();
-app.use(
-    /**
-     * 参数ctx是由koa传入的封装了request和response的变量
-     * next是koa传入的将要处理的下一个异步函数。
-     * 上面的异步函数中，我们首先用await next();处理下一个异步函数，然后，设置response的Content-Type和内容。
-     */
-    async(ctx, next)=>{
+
+app.use(async(ctx, next)=>{
+    if(ctx.request.path === '/'){
+        ctx.response.body = 'index page';
+    }else{
         await next();
-        console.log('form...'+ctx.request.url);
-        ctx.response.type = 'text/html';
-        ctx.response.body = '<h1>Hello, koa2</h1>';
     }
-);
+});
+app.use(async(ctx, next)=>{
+    if(ctx.request.path === '/test'){
+        ctx.response.body = 'Test page';
+    }else{
+        await next();
+    }
+});
+app.use(async(ctx, next)=>{
+    if(ctx.request.path === '/error'){
+        ctx.response.body = 'Error page';
+    }else{
+        await next();
+    }
+});
 app.listen(3000);
 console.log('app start at port 3000...');
