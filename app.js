@@ -8,6 +8,7 @@ app.use(
      */
     async(ctx, next)=>{
         await next();
+        console.log('form...'+ctx.request.url);
         ctx.response.type = 'text/html';
         ctx.response.body = '<h1>Hello, koa2</h1>';
     }
