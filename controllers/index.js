@@ -1,3 +1,5 @@
+'use strict';
+
 var fn_index = async(ctx, next) => {
     ctx.response.body = 
     `<h1>Index</h1>
@@ -19,14 +21,9 @@ var fn_singin = async(ctx, next)=>{
         ctx.response.body = `<h1>Login failed!</h1>
         <p><a href="/">Try again</a></p>`;
     }
-}
+};
 
 module.exports = {
-    /**
-     * 对外暴露的名字是
-     * 'GET /'
-     * 'POST /signin'
-     */
     'GET /':fn_index,
     'POST /signin':fn_singin
 };
